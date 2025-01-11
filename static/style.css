@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #0046b8;
+  color: white;
+  padding: 15px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav .button {
+  margin-right: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type=text], input[type=number], textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+input[type=file] {
+  margin-bottom: 10px;
+}
+
+/* Grid layout for products */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping of items */
+  justify-content: space-between; /* Space between items */
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px; /* Space between rows */
+  background-color: white;
+  text-align: center; /* Center-align text and images */
+  width: calc(16.66% - 10px); /* Six items per row with some spacing */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.product-image-container {
+margin-bottom: 10px; /* Space between image and text */
+}
+
+.product-image {
+max-width:100%; /* Responsive image */
+height:auto; /* Maintain aspect ratio */
+}
+
+.product-video {
+max-width:100%; /* Responsive video */
+height:auto; /* Maintain aspect ratio */
+}
+
+.button {
+display:inline-block; 
+padding:10px 20px; 
+margin-top:10px; 
+background-color:#007bff; 
+color:white; 
+text-decoration:none; 
+border-radius:5px; 
+transition:.3s ease-in-out; 
+box-shadow :0px 5px 15px rgba(0 ,123 ,255 ,.4);
+}
+.button:hover{
+background-color:#0056b3; 
+transform :translateY(-2px);
+}
+footer {
+background-color:#f1f1f1; 
+padding :10px; 
+text-align:center ;
+}

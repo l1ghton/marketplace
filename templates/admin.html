@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Marketplace</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+<h1>Admin Panel - Add Product</h1>
+<a href="{{ url_for('index') }}">Back to Home</a>
+<a class="button" href="{{ url_for('logout') }}">Logout</a> <!-- Logout button -->
+</header>
+
+<main>
+<form action="" method="post" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Product Name" required><br/>
+  <textarea name="description" placeholder="Product Description" required></textarea><br/>
+  <input type="number" step=".01" name="price" placeholder="Price" required><br/>
+  <input type="file" name="images" accept="image/*" multiple required><br/>
+  <input type="file" name="videos" accept="video/*" multiple><br/>
+  <button type="submit">Add Product</button>
+</form>
+
+<h2>Existing Products</h2>
+<table border='1'>
+<tr><th>ID</th><th>Name</th><th>Description</th><th>Price</th><th>Images</th><th>Videos</th><th>Actions</th></tr>
+{% for product in products %}
+<tr>
+  <td>{{ product[0] }}</td>
+  <td>{{ product[1] }}</td>
+  <td>{{ product[2] }}</td>
+  <td>{{ product[3] }} ₽</td> <!-- Changed to rubles -->
+  <td>{{ product[4] }}</td>
+  <td>{{ product[5] }}</td>
+  <td>
+      <a class='button' href="{{ url_for('edit_product', product_id=product[0]) }}">Edit</a> <!-- Edit button -->
+      <!-- Removed Delete Product button -->
+  </td>
+</tr>
+{% endfor %}
+</table>
+
+</main>
+
+<footer>
+<p>&copy; 2023 Marketplace</p>
+</footer>
+
+</body>
+</html>

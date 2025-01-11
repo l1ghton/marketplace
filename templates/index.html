@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketplace</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+<h1>Marketplace</h1>
+<nav>
+<a class="button" href="{{ url_for('index') }}">Home</a>
+<a class="button" href="{{ url_for('admin') }}">Admin Panel</a>
+</nav>
+<form action="{{ url_for('index') }}" method="post">
+<input type="text" name="search" placeholder="Search for products..." value="{{ search_query }}">
+<button type="submit">Search</button>
+</form>
+</header>
+
+<main>
+<div class="product-grid">
+{% for product in products %}
+<div class="product-card">
+<h2>{{ product[1] }}</h2>
+<p>Price: {{ product[3] }} ₽</p> <!-- Changed to rubles -->
+
+{% if product[4] %}
+<div class="product-image-container">
+{% set image_list = product[4].split(',') %}
+<img src="{{ url_for('static', filename='uploads/' + image_list[0]) }}" alt="{{ product[1] }}" class='product-image'>
+</div>
+{% else %}
+<p>No images available.</p>
+{% endif %}
+
+<a class="button" href="{{ url_for('product_detail', product_id=product[0]) }}">View Details</a>
+</div>
+{% endfor %}
+</div>
+</main>
+
+<footer>
+<p>&copy; 2023 Marketplace</p>
+</footer>
+
+</body>
+</html>

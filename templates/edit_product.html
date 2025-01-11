@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Product - Marketplace</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+<h1>Edit Product: {{ product[1] }}</h1>
+<a href="{{ url_for('admin') }}">Back to Admin Panel</a>
+<a class="button" href="{{ url_for('logout') }}">Logout</a> <!-- Logout button -->
+</header>
+
+<main>
+<form action="" method="post" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Product Name" value="{{ product[1] }}" required><br/>
+  <textarea name="description" placeholder="Product Description" required>{{ product[2] }}</textarea><br/>
+  <input type="number" step=".01" name="price" placeholder="Price" value="{{ product[3] }}" required><br/>
+  
+  <h3>Current Images:</h3>
+  {% if product[4] %}
+      {% for image in product[4].split(',') %}
+          <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="{{ product[1] }}" class='product-image' style='max-width: 100px;'><br/>
+      {% endfor %}
+  {% else %}
+      <p>No images available.</p>
+  {% endif %}
+  
+  <input type="file" name="images" accept="image/*" multiple><br/>
+  
+  <h3>Current Videos:</h3>
+  {% if product[5] %}
+      {% for video in product[5].split(',') %}
+          <video controls class='product-video' style='max-width: 100px;'>
+              <source src="{{ url_for('static', filename='uploads/' + video) }}" type='video/mp4'>
+              Your browser does not support the video tag.
+          </video><br/>
+      {% endfor %}
+  {% else %}
+      <p>No videos available.</p>
+  {% endif %}
+  
+  <input type="file" name="videos" accept="video/*" multiple><br/>
+  
+  <button type="submit">Update Product</button>
+</form>
+
+</main>
+
+<footer>
+<p>&copy; 2023 Marketplace</p>
+</footer>
+
+</body>
+</html>

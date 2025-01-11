@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ product[1] }} - Marketplace</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header>
+<h1>{{ product[1] }}</h1>
+<a class="button" href="{{ url_for('index') }}">Back to Home</a>
+<a class="button" href="{{ url_for('admin') }}">Back to Admin Panel</a>
+</header>
+
+<main>
+<p><strong>Description:</strong> {{ product[2] }}</p>
+<p><strong>Price:</strong> ${{ product[3] }}</p>
+
+<div class="gallery">
+<h3>Current Images:</h3>
+{% if product[4] %}
+    {% for image in product[4].split(',') %}
+        <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="{{ product[1] }}" class='product-image'>
+    {% endfor %}
+{% else %}
+    <p>No images available.</p>
+{% endif %}
+</div>
+
+<div class='videos'>
+<h3>Current Videos:</h3>
+{% if product[5] %}
+    {% for video in product[5].split(',') %}
+        <video controls class='product-video'>
+            <source src="{{ url_for('static', filename='uploads/' + video) }}" type='video/mp4'>
+            Your browser does not support the video tag.
+        </video>
+    {% endfor %}
+{% else %}
+    <p>No videos available.</p>
+{% endif %}
+</div>
+
+</main>
+
+<footer>
+<p>&copy; 2023 Marketplace</p>
+</footer>
+
+</body>
+</html>
