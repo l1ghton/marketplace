@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marketplace</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
 
@@ -13,9 +13,22 @@
 <nav>
 <a class="button" href="{{ url_for('index') }}">Home</a>
 <a class="button" href="{{ url_for('admin') }}">Admin Panel</a>
+<a class="button" href="{{ url_for('cart') }}">Cart ({{ cart_count }})</a> <!-- Кнопка корзины -->
 </nav>
 <form action="{{ url_for('index') }}" method="post">
 <input type="text" name="search" placeholder="Search for products..." value="{{ search_query }}">
+<select name="category">
+    <option value="">All Categories</option>
+    <option value="Electronics" {% if category_filter == 'Electronics' %}selected{% endif %}>Electronics</option>
+    <option value="Clothing" {% if category_filter == 'Clothing' %}selected{% endif %}>Clothing</option>
+    <option value="Home" {% if category_filter == 'Home' %}selected{% endif %}>Home</option>
+</select>
+<select name="sort_by">
+    <option value="">Sort By</option>
+    <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+    <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+    <option value="rating" {% if sort_by == 'rating' %}selected{% endif %}>Rating</option>
+</select>
 <button type="submit">Search</button>
 </form>
 </header>
@@ -25,7 +38,8 @@
 {% for product in products %}
 <div class="product-card">
 <h2>{{ product[1] }}</h2>
-<p>Price: {{ product[3] }} ₽</p> <!-- Changed to rubles -->
+<p>Price: {{ product[3] }} ₽</p>
+<p>Rating: {{ product[7] }}</p>
 
 {% if product[4] %}
 <div class="product-image-container">
@@ -37,6 +51,7 @@
 {% endif %}
 
 <a class="button" href="{{ url_for('product_detail', product_id=product[0]) }}">View Details</a>
+<button class="add-to-cart" data-product-id="{{ product[0] }}">Add to Cart</button>
 </div>
 {% endfor %}
 </div>
@@ -46,5 +61,6 @@
 <p>&copy; 2023 Marketplace</p>
 </footer>
 
+<script src="{{ url_for('static', filename='js/index.js') }}"></script> <!-- Подключение JavaScript -->
 </body>
 </html>
